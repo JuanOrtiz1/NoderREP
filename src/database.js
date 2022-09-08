@@ -1,4 +1,5 @@
 const mysql = require('mysql');
+const { promisify } = require('util');
 
 const { database } = require('./keys');
 
@@ -21,5 +22,9 @@ pool.getConnection((err, connection ) => {
     console.log('DB Is connected');
     return;
 });
+
+//Promisify  Pool Querys.
+pool.query = promisify(pool.query);
+
 
 module.exports = pool;
