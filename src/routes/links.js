@@ -5,11 +5,19 @@ const pool = require('../database');
 
 router.get('/add', (req, res) => {
     res.render('links/add');
-
 });
 
-router.post('/add', (req,res ) =>{
-    res.send('recived');
+router.post('/add', async (req, res) => {
+    const { title, url, description } = req.body;
+    const newLink = {
+        title,
+        url,
+        description,
+        user_id: req.user.id
+    };
+    await pool.query('INSERT INTO links set ?', [newLink]);
+    req.flash('success', 'Link Saved Successfully');
+    res.redirect('/links');
 });
 
 module.exports = router;
