@@ -12,12 +12,16 @@ router.post('/add', async (req, res) => {
     const newLink = {
         title,
         url,
-        description,
-        user_id: req.user.id
+        description
     };
-    await pool.query('INSERT INTO database_links.links set ?1', [newLink]);
-    req.flash('success', 'Link Saved Successfully');
+    await pool.query('INSERT INTO database_links.links set ?', [newLink]);
     res.redirect('/links');
+});
+
+router.get('/', async (req, res) => {
+    const links = await pool.query('SELECT * FROM database_links.links');
+    console.log(links);
+    res.render('links/list', { links });
 });
 
 module.exports = router;
