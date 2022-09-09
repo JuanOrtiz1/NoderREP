@@ -2,7 +2,6 @@ const express = require('express');
 const morgan = require('morgan');
 const { engine } = require('express-handlebars');
 const path = require('path');
-
 // Initializations
 const app = express();
 

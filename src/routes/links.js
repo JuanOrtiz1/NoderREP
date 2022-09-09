@@ -15,7 +15,7 @@ router.post('/add', async (req, res) => {
         description,
         user_id: req.user.id
     };
-    await pool.query('INSERT INTO links set ?', [newLink]);
+    await pool.query('INSERT INTO database_links.links set ?1', [newLink]);
     req.flash('success', 'Link Saved Successfully');
     res.redirect('/links');
 });
